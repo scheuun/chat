@@ -1,14 +1,18 @@
 package com.chat.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Controller
+@ServerEndpoint("/chat")
 public class ChatController {
     private static final List<Session> session = new ArrayList<Session>();
 

@@ -1,10 +1,11 @@
 package com.chat.model;
 
-public class User {
+public class Member {
     private int id;
     private String nickname;
     private String pwd;
-    private  String email;
+    private String email;
+    private String language;
 
     public int getId() {
         return id;
@@ -36,5 +37,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCountry() {
+        return language;
+    }
+
+    public void setCountry(String country) {
+        this.language = country;
     }
 }

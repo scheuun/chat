@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chat.dao.map.MemberMap">
+    <insert id="joinMember">
+        insert into members(nickname, pwd, email, language)
+        values (#{nickname}, #{pwd}, #{email}, #{language})
+    </insert>
+
+    <select id="idCheck" parameterType="String" resultType="int">
+		SELECT COUNT(id) FROM members WHERE id= #{id}
+	</select>
+
+    <select id="pwdCheck" resultType="string">
+        select pwd from members
+        where id = #{id}
+    </select>
+
+    <select id="login" resultType="Member">
+        select * from members
+        where id = #{id} and pwd = #{pwd}
+    </select>
+
+    <select id="findId" resultType="string">
+        select id from members
+        where email = #{email}
+    </select>
+
+    <select id="findPwd" resultType="int">
+        select COUNT(*) from members
+        where id = #{id} and email = #{email}
+    </select>
+
+    <select id="updatePwd">
+        update members
+        set pwd = #{pwd}
+        where id = #{id} and email = #{email}
+    </select>
+
+    <select id="myPage" resultType="Member">
+        select * from members
+        where id = #{id}
+    </select>
+</mapper>

@@ -44,10 +44,10 @@ public class MemberController {
     return memberService.joinMember(member);
   }
 
-  @PostMapping("/idCheck")
+  @PostMapping("/nnCheck")
   @ResponseBody
-  public int idCheck(String id) {
-    return memberService.idCheck(id);
+  public int nnCheck(String nickname) {
+    return memberService.nnCheck(nickname);
   }
 
   @PostMapping("/member/login")

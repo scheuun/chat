@@ -16,24 +16,24 @@
     <script>
         function join (){
 
-            $('#id').blur(function () {
-                console.log($('#id').val())
+            $('#nickname').blur(function () {
+                console.log($('#nickname').val())
                 $.ajax({
                     type:"POST",
-                    url:"/idCheck",
+                    url:"/nnCheck",
                     data:{
-                        id: $('#id').val()
+                        id: $('#nickname').val()
                     },
                     success:function(cnt){
-                        if(document.getElementById('id').value== "") {
-                            $('.idMsg').css("display","block");
+                        if(document.getElementById('nickname').value== "") {
+                            $('.nicknameMsg').css("display","block");
                         }else {
                             if(cnt==0){
-                                $('.idMsg').text("사용 가능한 아이디 입니다.");
-                                $('.idMsg').css("display","block");
+                                $('.nicknameMsg').text("사용 가능한 아이디 입니다.");
+                                $('.nicknameMsg').css("display","block");
                             }else{
-                                $('.idMsg').text("이미 사용중인 아이디 입니다.");
-                                $('.idMsg').css("display","block");
+                                $('.nicknameMsg').text("이미 사용중인 아이디 입니다.");
+                                $('.nicknameMsg').css("display","block");
                             }
                         }
                     },
@@ -86,33 +86,35 @@
                 }
             });
 
-            $('#country').blur(function (){
-                if(document.getElementById('country').value== "") {
-                    $('.countryMsg').css("display", "block");
+            if(document.getElementById('language').value== "") {
+                $('.langMsg').css("display", "block");
 
-                }
-            });
+            }
 
             $('#joinBtn').click(function (){
-                var id = $('#id').val();
+                var nickname = $('#nickname').val();
                 var pwd = $('#pwd').val();
                 var email = $('#email').val();
-                var lang = $('#lang').val();
+                var language = $('#language').val();
 
 
-                if(id.length == 0 || pwd.length == 0 || email.length == 0 || lang.length == 0) {
-                    $('.idMsg').css("display","block");
+                if(nickname.length == 0 || pwd.length == 0 || email.length == 0 || language.length == 0) {
+                    $('.nicknameMsg').css("display","block");
                     $('.pwdMsg').css("display", "block");
                     $('.pwdChkMsg').css("display", "block");
                     $('.emailMsg').css("display", "block");
+                    $('.langMsg').css("display", "block");
                 } else {
                     $.ajax({
                         type:"POST",
                         url: "/join",
                         dataType:"json",
-                        data: {id: id,
+                        data: {
+                            nickname: nickname,
                             pwd: pwd,
-                            email: email},
+                            email: email,
+                            language: language
+                        },
                         success : function (data) {
                             result:data,
                                 document.getElementById("view1").style.display = "none";
@@ -142,8 +144,8 @@
 <div class='row'>
     <div class='col' id='view1' style='text-align:center;'>
         <label>아이디&emsp;</label><br>
-        <input type='text' id='id' name='id'/><br>
-        <span class="idMsg" style ="color:red;display:none;">필수 정보입니다.</span>
+        <input type='text' id='nickname' name='nickname'/><br>
+        <span class="nicknameMsg" style ="color:red;display:none;">필수 정보입니다.</span>
         <label>비밀번호</label><br>
         <input type='password' id='pwd' name='pwd'/><br>
         <span class="pwdMsg" style ="color:red;display:none;">필수 정보입니다.</span>
@@ -154,7 +156,7 @@
         <input type='text' id='email' name='email'/>
         <span class="emailMsg" style ="color:red;display:none;">필수 정보입니다.</span><br>
         <label>언어</label><br>
-        <select name="lang" id="lang">
+        <select name="language" id="language">
             <option value=""></option>
             <option value="ko">한국어</option>
             <option value="en">English</option>

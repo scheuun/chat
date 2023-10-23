@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 public interface MemberMap {
     int joinMember(Member member);
-    int idCheck(String id);
+    int nnCheck(String nickname);
     String pwdCheck(String id);
     String findId(String email);
     int findPwd(@Param("id") String id, @Param("email") String email);

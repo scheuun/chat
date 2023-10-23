@@ -22,8 +22,8 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public int idCheck(String id) {
-        return memberMap.idCheck(id);
+    public int nnCheck(String nickname) {
+        return memberMap.nnCheck(nickname);
     }
 
     @Override

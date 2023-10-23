@@ -6,8 +6,8 @@
         values (#{nickname}, #{pwd}, #{email}, #{language})
     </insert>
 
-    <select id="idCheck" parameterType="String" resultType="int">
-		SELECT COUNT(id) FROM members WHERE id= #{id}
+    <select id="nnCheck" parameterType="String" resultType="int">
+		SELECT COUNT(nickname) FROM members WHERE nickname= #{nickname}
 	</select>
 
     <select id="pwdCheck" resultType="string">
@@ -15,10 +15,10 @@
         where id = #{id}
     </select>
 
-    <select id="login" resultType="Member">
-        select * from members
-        where id = #{id} and pwd = #{pwd}
-    </select>
+<!--    <select id="login" resultType="Member">-->
+<!--        select * from members-->
+<!--        where id = #{id} and pwd = #{pwd}-->
+<!--    </select>-->
 
     <select id="findId" resultType="string">
         select id from members
@@ -36,8 +36,8 @@
         where id = #{id} and email = #{email}
     </select>
 
-    <select id="myPage" resultType="Member">
-        select * from members
-        where id = #{id}
-    </select>
+<!--    <select id="myPage" resultType="Member">-->
+<!--        select * from members-->
+<!--        where id = #{id}-->
+<!--    </select>-->
 </mapper>

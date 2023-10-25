@@ -15,6 +15,28 @@
     </style>
     <script>
         $(document).ready(function (){
+            $('#id').blur(
+                function (){
+                    var id = document.getElementById('id').value;
+
+                    if(id == "" || id.length == 0) {
+                        $('.idMsg').css("display", "block");
+                    } else {
+                        $('.idMsg').css("display", "none");
+                    }
+                });
+
+            $('#email').blur(
+                function (){
+                    var email = document.getElementById('email').value;
+
+                    if(email== "" || email.length == 0) {
+                        $('.emailMsg').css("display", "block");
+                    } else {
+                        $('.emailMsg').css("display", "none");
+                    }
+                });
+
             $('#findBtn').click(function (){
                 var id  = $('#id').val();
                 var email = $('#email').val();
@@ -103,8 +125,6 @@
                     },
                 });
             });
-
-
         });
     </script>
 </head>
@@ -120,8 +140,10 @@
     <div class='col' id='view1' style='text-align:center;'>
         <label>아이디&emsp;</label>
         <input type='text' id='id' name='id'/><br>
+        <span class="idMsg" style ="color:red;display:none;">필수 정보입니다.</span>
         <label>이메일&emsp;</label>
-        <input type='text' id='email' name='email'/><br><br><br>
+        <input type='text' id='email' name='email'/><br>
+        <span class="emailMsg" style ="color:red;display:none;">필수 정보입니다.</span><br><br>
         <div  style="display: flex; justify-content: center;">
               <button type='button' class='btn btn-secondary btn-block'
                         id='findBtn' style="width:120">비밀번호 찾기</button>

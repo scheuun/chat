@@ -5,8 +5,8 @@ import java.security.NoSuchAlgorithmException;
 
 public interface MemberService {
     int joinMember(Member member) throws NoSuchAlgorithmException;
-    int nnCheck(String nickname);
-    String pwdCheck(String id);
+    int idCheck(String id);
+    String login(String id);
     String findId(String email);
     int findPwd(String id, String email);
     void updatePwd(Member member);

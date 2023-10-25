@@ -22,13 +22,13 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public int nnCheck(String nickname) {
-        return memberMap.nnCheck(nickname);
+    public int idCheck(String nickname) {
+        return memberMap.idCheck(nickname);
     }
 
     @Override
-    public String pwdCheck(String id) {
-        return memberMap.pwdCheck(id);
+    public String login(String id) {
+        return memberMap.login(id);
     }
 
     @Override

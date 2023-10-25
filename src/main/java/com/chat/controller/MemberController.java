@@ -44,17 +44,17 @@ public class MemberController {
     return memberService.joinMember(member);
   }
 
-  @PostMapping("/nnCheck")
+  @PostMapping("/idCheck")
   @ResponseBody
-  public int nnCheck(String nickname) {
-    return memberService.nnCheck(nickname);
+  public int idCheck(String id) {
+    return memberService.idCheck(id);
   }
 
-  @PostMapping("/member/login")
+  @PostMapping("/")
   public String loginMembers(String id, String pwd, HttpSession session, String rememberId, HttpServletResponse response, Model model) throws NoSuchAlgorithmException  {
     SHA256 sha256 = new SHA256();
 
-    if (sha256.encrypt(pwd).equals(memberService.pwdCheck(id))) {
+    if (sha256.encrypt(pwd).equals(memberService.login(id))) {
       session.setAttribute("id", id);
 
       if (rememberId != null) {
@@ -63,7 +63,7 @@ public class MemberController {
         response.addCookie(cookie);
         model.addAttribute("cookieId", id);
       }
-      return "redirect:/";
+      return "redirect:chat/chat";
 
     } else {
       model.addAttribute("msg", "아이디와 비밀번호를 확인하세요.");

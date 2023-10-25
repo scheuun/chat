@@ -15,28 +15,33 @@
     </style>
     <script>
         $(document).ready(function (){
-            $('#findBtn').click(function (){
-
-                $.ajax({
-                    type:"POST",
-                    url: "/member/findId",
-                    data : {
-                        email : $('#email').val()
-                    },
-                    success : function (data) {
-                        result:data,
-                        document.getElementById("view1").style.display = "none";
-                        $('.msg').text(data);
-                        document.getElementById("view2").style.display = "block";
-                    },
-                    error: function (data) {
-                        result:data,
-                        alert("실패")
-                        document.getElementById("view1").style.display = "none";
-                        document.getElementById("view2").style.display = "block";
-                    },
-                });
-            });
+            $('#email').blur(function () {
+                if(document.getElementById('email').value== "") {
+                    $('.emailMsg').css("display","block");
+                }else {
+                    $('#findBtn').click(function (){
+                        $.ajax({
+                            type:"POST",
+                            url: "/member/findId",
+                            data : {
+                                email : $('#email').val()
+                            },
+                            success : function (data) {
+                                result:data,
+                                    document.getElementById("view1").style.display = "none";
+                                $('.msg').text(data);
+                                document.getElementById("view2").style.display = "block";
+                            },
+                            error: function (data) {
+                                result:data,
+                                    alert("실패")
+                                document.getElementById("view1").style.display = "none";
+                                document.getElementById("view2").style.display = "block";
+                            },
+                        });
+                    });
+                }
+            })
         });
     </script>
 </head>
@@ -51,7 +56,8 @@
 <div class='row'>
     <div class='col' id='view1' style='text-align:center;'>
         <label>이메일&emsp;</label>
-        <input type='text' id='email' name='email'/><br><br><br>
+        <input type='text' id='email' name='email'/><br>
+        <span class="emailMsg" style ="color:red;display:none;">필수 정보입니다.</span><br><br>
         <div  style="display: flex; justify-content: center;">
               <button type='button' class='btn btn-secondary btn-block'
                         id='findBtn' style="width:120">아이디 찾기</button>

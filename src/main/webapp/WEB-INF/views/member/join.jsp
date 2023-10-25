@@ -16,24 +16,31 @@
     <script>
         function join (){
 
-            $('#nickname').blur(function () {
-                console.log($('#nickname').val())
+            $('#id').blur(function () {
+                console.log($('#id').val())
                 $.ajax({
                     type:"POST",
-                    url:"/nnCheck",
+                    url:"/idCheck",
                     data:{
-                        id: $('#nickname').val()
+                        id: $('#id').val()
                     },
                     success:function(cnt){
-                        if(document.getElementById('nickname').value== "") {
-                            $('.nicknameMsg').css("display","block");
+                        if(document.getElementById('id').value== "") {
+                            $('.idMsg').css("display","block");
                         }else {
                             if(cnt==0){
-                                $('.nicknameMsg').text("사용 가능한 아이디 입니다.");
-                                $('.nicknameMsg').css("display","block");
+                                var id = document.getElementById('id').value;
+                                if(id.length < 4 || id.length > 8) {
+                                    $('.idMsg').text("아이디는 4글자 이상, 8글자 이하만 이용 가능합니다.");
+                                    $('.idMsg').css("display", "block");
+                                } else {
+                                    $('.idMsg').text("사용 가능한 닉네임 입니다.");
+                                    $('.idMsg').css("display","block");
+                                }
                             }else{
-                                $('.nicknameMsg').text("이미 사용중인 아이디 입니다.");
-                                $('.nicknameMsg').css("display","block");
+
+                                $('.idMsg').text("이미 사용중인 닉네임 입니다.");
+                                $('.idMsg').css("display","block");
                             }
                         }
                     },
@@ -43,6 +50,20 @@
 
                     },
                 });
+            });
+
+            $('#nickname').blur(function (){
+                var nickname = document.getElementById('nickname').value;
+                if(document.getElementById('nickname').value== "") {
+                    $('.nnMsg').css("display", "block");
+                } else {
+                    if(nickname.length > 12) {
+                        $('.nnMsg').text("닉네임는 12글자 이하만 이용 가능합니다.");
+                        $('.nnMsg').css("display", "block");
+                    } else {
+                        $('.nnMsg').css("display", "none");
+                    }
+                }
             });
 
             $('#pwd').blur(function (){
@@ -92,14 +113,15 @@
             }
 
             $('#joinBtn').click(function (){
+                var id = $('#id').val();
                 var nickname = $('#nickname').val();
                 var pwd = $('#pwd').val();
                 var email = $('#email').val();
                 var language = $('#language').val();
 
-
-                if(nickname.length == 0 || pwd.length == 0 || email.length == 0 || language.length == 0) {
-                    $('.nicknameMsg').css("display","block");
+                if(id.length == 0 || nickname.length == 0|| pwd.length == 0 || email.length == 0 || language.length == 0) {
+                    $('.idMsg').css("display","block");
+                    $('.nnMsg').css("display","block");
                     $('.pwdMsg').css("display", "block");
                     $('.pwdChkMsg').css("display", "block");
                     $('.emailMsg').css("display", "block");
@@ -110,6 +132,7 @@
                         url: "/join",
                         dataType:"json",
                         data: {
+                            id: id,
                             nickname: nickname,
                             pwd: pwd,
                             email: email,
@@ -143,9 +166,12 @@
 <h4 style='text-align:center;'><b>회원가입</b></h4><hr><br>
 <div class='row'>
     <div class='col' id='view1' style='text-align:center;'>
-        <label>아이디&emsp;</label><br>
+        <label>아이디</label><br>
+        <input type='text' id='id' name='id'/><br>
+        <span class="idMsg" style ="color:red;display:none;">필수 정보입니다.</span>
+        <label>닉네임</label><br>
         <input type='text' id='nickname' name='nickname'/><br>
-        <span class="nicknameMsg" style ="color:red;display:none;">필수 정보입니다.</span>
+        <span class="nnMsg" style ="color:red;display:none;">필수 정보입니다.</span>
         <label>비밀번호</label><br>
         <input type='password' id='pwd' name='pwd'/><br>
         <span class="pwdMsg" style ="color:red;display:none;">필수 정보입니다.</span>
@@ -157,7 +183,6 @@
         <span class="emailMsg" style ="color:red;display:none;">필수 정보입니다.</span><br>
         <label>언어</label><br>
         <select name="language" id="language">
-            <option value=""></option>
             <option value="ko">한국어</option>
             <option value="en">English</option>
             <option value="ja">日本語</option>

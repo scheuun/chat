@@ -1,17 +1,26 @@
 package com.chat.model;
 
 public class Member {
-    private int id;
+    private int member_id;
+    private String id;
     private String nickname;
     private String pwd;
     private String email;
     private String language;
 
-    public int getId() {
+    public int getMember_id() {
+        return member_id;
+    }
+
+    public void setMember_id(int member_id) {
+        this.member_id = member_id;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -39,11 +48,11 @@ public class Member {
         this.email = email;
     }
 
-    public String getCountry() {
+    public String getLanguage() {
         return language;
     }
 
-    public void setCountry(String country) {
-        this.language = country;
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }

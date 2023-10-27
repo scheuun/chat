@@ -16,8 +16,13 @@ import java.util.List;
 public class ChatController {
     private static final List<Session> session = new ArrayList<Session>();
 
+    @GetMapping("/chat/list")
+    public String list() {
+        return "chat/list";
+    }
+
     @GetMapping("/chat/chat")
-    public String main() {
+    public String chat() {
         return "chat/chat";
     }
 

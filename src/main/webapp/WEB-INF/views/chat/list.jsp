@@ -22,13 +22,13 @@
         .room-list {
             list-style-type: none;
             padding: 0;
-            background-color: #3498db; /* 파란색 배경색 설정 */
+            background-color: #3498db;
             padding: 10px;
         }
 
         .room-list li {
             margin-bottom: 10px;
-            color: #fff; /* 텍스트 색상을 흰색으로 변경 */
+            color: #fff;
         }
     </style>
 </head>

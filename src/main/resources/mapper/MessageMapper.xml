@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chat.dao.map.MessageMap">
+	<select id='selectMsg' resultType='message'>
+		select *
+		from messages
+		where room_id = #{room_id}
+		order by message_reg_time
+	</select>
+
+	<insert id='insertMsg'>
+		insert into messages(msg_id, room_id, sender_id, message, time)
+		values(#{msg_id}, #{room_id}, #{sender_id}, #{message}, now())
+	</insert>
+</mapper>

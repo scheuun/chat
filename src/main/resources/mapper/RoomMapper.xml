@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chat.dao.map.RoomMap">
+    <select id='selectRoom' resultType='room'>
+		select *
+		from rooms
+		where id = #{id}
+		order by time;
+	</select>
+
+    <insert id='insertRoom'>
+		insert into rooms(room_name, id)
+		values(#{room_name}, #{id})
+	</insert>
+</mapper>

@@ -15,11 +15,6 @@
         where id = #{id}
     </select>
 
-<!--    <select id="login" resultType="member">-->
-<!--        select * from members-->
-<!--        where id = #{id} and pwd = #{pwd}-->
-<!--    </select>-->
-
     <select id="findId" resultType="string">
         select id from members
         where email = #{email}

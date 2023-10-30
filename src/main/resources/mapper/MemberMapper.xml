@@ -7,7 +7,7 @@
     </insert>
 
     <select id="idCheck" parameterType="String" resultType="int">
-		SELECT COUNT(id) FROM members WHERE id= #{id}
+		select COUNT(id) from members where id= #{id}
 	</select>
 
     <select id="login" resultType="string">

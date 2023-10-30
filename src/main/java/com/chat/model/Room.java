@@ -1,16 +1,16 @@
 package com.chat.model;
 
 public class Room {
-    private int room_id;
+    private int room_num;
     private String room_name;
-    private String creator_id ;
+    private int creator_num ;
 
-    public int getRoom_id() {
-        return room_id;
+    public int getRoom_num() {
+        return room_num;
     }
 
-    public void setRoom_id(int room_id) {
-        this.room_id = room_id;
+    public void setRoom_num(int room_num) {
+        this.room_num = room_num;
     }
 
     public String getRoom_name() {
@@ -21,11 +21,11 @@ public class Room {
         this.room_name = room_name;
     }
 
-    public String getCreator_id() {
-        return creator_id;
+    public int getCreator_num() {
+        return creator_num;
     }
 
-    public void setCreator_id(String creator_id) {
-        this.creator_id = creator_id;
+    public void setCreator_num(int creator_num) {
+        this.creator_num = creator_num;
     }
 }

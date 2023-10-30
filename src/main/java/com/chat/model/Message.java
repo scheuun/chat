@@ -3,34 +3,34 @@ package com.chat.model;
 import java.sql.Timestamp;
 
 public class Message {
-    private int msg_id;
-    private int room_id;
-    private int sender_id;
+    private int msg_num;
+    private int room_num;
+    private int sender_num;
     private String message;
     private Timestamp time;
 
-    public int getMsg_id() {
-        return msg_id;
+    public int getMsg_num() {
+        return msg_num;
     }
 
-    public void setMsg_id(int msg_id) {
-        this.msg_id = msg_id;
+    public void setMsg_num(int msg_num) {
+        this.msg_num = msg_num;
     }
 
-    public int getRoom_id() {
-        return room_id;
+    public int getRoom_num() {
+        return room_num;
     }
 
-    public void setRoom_id(int room_id) {
-        this.room_id = room_id;
+    public void setRoom_num(int room_num) {
+        this.room_num = room_num;
     }
 
-    public int getSender_id() {
-        return sender_id;
+    public int getSender_num() {
+        return sender_num;
     }
 
-    public void setSender_id(int sender_id) {
-        this.sender_id = sender_id;
+    public void setSender_num(int sender_num) {
+        this.sender_num = sender_num;
     }
 
     public String getMessage() {

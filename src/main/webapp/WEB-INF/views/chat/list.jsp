@@ -41,6 +41,13 @@
 <header>
     <h1>깨깨오똑</h1>
 </header>
+<section>
+    <h2>아이디 검색</h2>
+    <form method="post" action="chat/searchResult">
+        <input type="text" name="keyword" placeholder="아이디를 입력하세요">
+        <button type="submit">검색</button>
+    </form>
+</section>
 <div class="chat-container">
     <div class="chat-sidebar">
         <h2>채팅방 목록</h2>

@@ -1,19 +1,19 @@
 package com.chat.model;
 
 public class Member {
-    private int member_id;
+    private int member_num;
     private String id;
     private String nickname;
     private String pwd;
     private String email;
     private String language;
 
-    public int getMember_id() {
-        return member_id;
+    public int getMember_num() {
+        return member_num;
     }
 
-    public void setMember_id(int member_id) {
-        this.member_id = member_id;
+    public void setMember_num(int member_num) {
+        this.member_num = member_num;
     }
 
     public String getId() {

@@ -4,12 +4,12 @@
 	<select id='selectMsg' resultType='message'>
 		select *
 		from messages
-		where room_id = #{room_id}
-		order by message_reg_time
+		where room_num = #{room_num}
+		order by time
 	</select>
 
 	<insert id='insertMsg'>
-		insert into messages(msg_id, room_id, sender_id, message, time)
-		values(#{msg_id}, #{room_id}, #{sender_id}, #{message}, now())
+		insert into messages(msg_id, room_num, sender_num, message, time)
+		values(#{msg_id}, #{room_num}, #{sender_num}, #{message}, now())
 	</insert>
 </mapper>

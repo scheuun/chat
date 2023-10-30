@@ -4,12 +4,12 @@
     <select id='selectRoom' resultType='room'>
 		select *
 		from rooms
-		where id = #{id}
+		where creator_num = #{creator_num}
 		order by time;
 	</select>
 
     <insert id='insertRoom'>
-		insert into rooms(room_name, id)
-		values(#{room_name}, #{id})
+		insert into rooms(room_name, creator_num)
+		values(#{room_name}, #{creator_num})
 	</insert>
 </mapper>

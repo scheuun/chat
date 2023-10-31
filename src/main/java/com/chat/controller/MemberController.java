@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @Controller
 public class MemberController {
@@ -21,6 +23,12 @@ public class MemberController {
   public String login(@CookieValue(required = false) String id, Model model) {
     if (id != null) model.addAttribute("id", id);
     return "member/login";
+  }
+
+  @GetMapping("/member/logout")
+  public String logoutMembers(HttpSession session) {
+    session.invalidate();
+    return "redirect:/";
   }
 
   @GetMapping("/member/join")
@@ -36,6 +44,23 @@ public class MemberController {
   @GetMapping("/member/findPwd")
   public String findPwd() {
     return "member/findPwd";
+  }
+
+  @RequestMapping(value = "/member/searchResult", method = { RequestMethod.POST })
+  public String searchResult(Model model, String keyword) {
+    List<Member> result = memberService.searchId(keyword);
+
+    if (keyword == "" || result.size() == 0) {
+      model.addAttribute("none", "검색결과가 존재하지 않습니다.");}
+    else {    model.addAttribute("result", result);}
+
+    return "member/searchResult";
+  }
+
+  @GetMapping("/member/myPage")
+  public String myPage(HttpSession session, Model model) {
+    model.addAttribute("member", memberService.myPage((String) session.getAttribute("id")));
+    return "member/myPage";
   }
 
   @PostMapping("/join")
@@ -70,19 +95,6 @@ public class MemberController {
       return "member/login";
     }
   }
-
-  @GetMapping("/member/logout")
-  public String logoutMembers(HttpSession session) {
-    session.invalidate();
-    return "redirect:/";
-  }
-
-  @GetMapping("/member/myPage")
-  public String myPage(HttpSession session, Model model) {
-    model.addAttribute("member", memberService.myPage((String) session.getAttribute("id")));
-    return "member/myPage";
-  }
-
 
   @ResponseBody
   @RequestMapping(value = "/member/findId", method = { RequestMethod.POST })

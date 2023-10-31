@@ -8,7 +8,7 @@
     <title>JOIN</title>
     <style>
         header {
-            background-color: #f5f5f5;
+            background-color: #04B4AE;
             padding: 20px;
             text-align: center;
         }

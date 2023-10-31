@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -44,6 +45,11 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void updatePwd(Member member) {
         memberMap.updatePwd(member);
+    }
+
+    @Override
+    public List<Member> searchId(String keyword) {
+        return memberMap.searchId(keyword);
     }
 
     @Override

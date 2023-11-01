@@ -115,4 +115,12 @@ public class MemberController {
     member.setPwd(sha256.encrypt(member.getPwd()));
     memberService.updatePwd(member);
   }
+
+  @PostMapping("/updateMem")
+  @ResponseBody
+  public void updateMem(Member member) throws NoSuchAlgorithmException {
+    SHA256 sha256 = new SHA256();
+    member.setPwd(sha256.encrypt(member.getPwd()));
+    memberService.updateMem(member);
+  };
 }

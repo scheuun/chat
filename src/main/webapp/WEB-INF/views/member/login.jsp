@@ -43,10 +43,7 @@
 <body>
 <header>
     <h1>깨깨오똑</h1>
-</header>
-<div style="text-align: right">
-    <a style='color:black' href = '<%=request.getContextPath() %>/'>메인</a>
-</div>
+</header><br>
 <h4 style='text-align:center;'><b>로그인</b></h4><hr><br>
 <div class='row'>
     <div class='col' style='text-align:center;'>

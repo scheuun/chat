@@ -97,7 +97,6 @@
                         $('.pwdChkMsg').css("display", "block");
                     }
                 }
-
             });
 
             $('#email').blur(function (){

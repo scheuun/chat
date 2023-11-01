@@ -14,4 +14,5 @@ public interface MemberMap {
     void updatePwd(Member member);
     List<Member> searchId(String keyword);
     Member myPage(String id);
+    void updateMem(Member member);
 }

@@ -14,7 +14,6 @@ public class MemberServiceImpl implements MemberService{
     @Autowired
     MemberMap memberMap;
 
-
     @Override
     public int joinMember(Member member) throws NoSuchAlgorithmException {
         SHA256 sha256 = new SHA256();
@@ -55,5 +54,10 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public Member myPage(String id) {
         return memberMap.myPage(id);
+    }
+
+    @Override
+    public void updateMem(Member member) {
+        memberMap.updateMem(member);
     }
 }

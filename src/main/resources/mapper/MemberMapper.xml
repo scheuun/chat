@@ -40,4 +40,10 @@
         select * from members
         where id = #{id}
     </select>
+
+    <select id="updateMem">
+        update members
+        set nickname = #{nickname}, email = #{email}, language = #{language}
+        where id = #{id} and pwd = #{pwd}
+    </select>
 </mapper>

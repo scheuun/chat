@@ -30,7 +30,38 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" ></script>
 <script>
+    // $(document).ready(function (){
+    //     $('#frdBtn').click(function (){
+    //         var your_num = $(this).closest('.resultList').find('.your_num').val();
+    //
+    //         console.log(your_num)
+    //
+    //         $.ajax({
+    //             type:"POST",
+    //             url: "/friend/insertFrd",
+    //             data : {
+    //                 your_num : $('#your_num').val()
+    //             },
+    //             success : function (data) {
+    //                 result:data;
+    //             },
+    //             error: function (data) {
+    //                 result:data,
+    //                     alert("실패")
+    //             },
+    //         });
+    //     });
+    // });
+    $(document).ready(function() {
+        var resultList = '${result}';
+        console.log(resultList);
 
+        $(".frdBtn").click(function() {
+            var yourNumValue = $(this).siblings(".your_num").val();
+            console.log(yourNumValue);
+        });
+
+    });
 </script>
 <body>
 <header>
@@ -49,8 +80,10 @@
         <div class="resultList">
             <p>${none}</p>
         <c:forEach var="result" items="${result}">
-            <b style="margin-right: 50px">${result.id}</b><button id="frdBtn">친구 추가</button><button id="chatBtn">대화하기</button>
+            <b style="margin-right: 50px">${result.id}</b>
+            <button class="frdBtn">친구 추가</button>
             <p>${result.nickname}</p>
+            <input class="your_num" value="${result.member_num}">
         </c:forEach>
         </div>
     </div>

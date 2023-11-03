@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
@@ -46,13 +45,13 @@ public class MemberController {
     return "member/findPwd";
   }
 
-  @RequestMapping(value = "/member/searchResult", method = { RequestMethod.POST })
+  @RequestMapping(value = "/member/searchResult", method = {RequestMethod.POST})
   public String searchResult(Model model, String keyword) {
     List<Member> result = memberService.searchId(keyword);
 
     if (keyword == "" || result.size() == 0) {
       model.addAttribute("none", "검색결과가 존재하지 않습니다.");}
-    else {    model.addAttribute("result", result);}
+    else {model.addAttribute("result", result);}
 
     return "member/searchResult";
   }

@@ -157,7 +157,7 @@
 </head>
 <body>
 <header>
-    <h1>깨깨오똑</h1>
+    <h1>주거니받거니</h1>
 </header>
 <div style="text-align: right">
     <a style='color:black' href = '<%=request.getContextPath() %>/'>메인</a>

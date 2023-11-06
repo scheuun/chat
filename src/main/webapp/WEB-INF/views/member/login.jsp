@@ -42,7 +42,7 @@
 </script>
 <body>
 <header>
-    <h1>깨깨오똑</h1>
+    <h1>주거니받거니</h1>
 </header><br>
 <h4 style='text-align:center;'><b>로그인</b></h4><hr><br>
 <div class='row'>

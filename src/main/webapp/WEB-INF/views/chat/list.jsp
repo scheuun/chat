@@ -38,7 +38,7 @@
 </script>
 <body>
 <header>
-    <h1>깨깨오똑</h1>
+    <h1>주거니받거니</h1>
 </header>
 <c:if test="${not empty sessionScope.id}">
     <div style="text-align: right">

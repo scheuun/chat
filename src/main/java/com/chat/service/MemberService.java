@@ -12,6 +12,6 @@ public interface MemberService {
     int findPwd(String id, String email);
     void updatePwd(Member member);
     List<Member> searchId(String keyword);
-    Member myPage(String id);
+    Member selectMem(String id);
     void updateMem(Member member);
 }

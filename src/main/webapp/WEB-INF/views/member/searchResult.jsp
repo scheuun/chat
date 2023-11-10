@@ -51,37 +51,44 @@
 <script>
     $(document).ready(function() {
         $(".frdBtn").click(function() {
-            var yourNumValue = $(this).siblings(".your_num").val();
-            console.log(yourNumValue);
+            var my_id = "<%=(String)session.getAttribute("id")%>";
+            var your_id = $(this).siblings(".your_id").val();
+
+            console.log(your_id);
+
+
 
             var modal = document.querySelector('.modal');
             modal.style.display = 'block';
 
-            noBtn.addEventListener('click', closeModal);
-            yesBtn.addEventListener('click', insertFrd());
-
-            function closeModal() {
+            if (my_id == your_id) {
                 modal.style.display = 'none';
+                console.log("같지렁")
             }
 
-            function insertFrd() {
+
+
+            $(".noBtn").click(function () {
+                modal.style.display = 'none';
+            })
+
+            $(".yesBtn").click(function () {
                 $.ajax({
                     type:"POST",
                     url: "/friend/insertFrd",
                     data : {
-                        your_num : $('#your_num').val()
+                        your_id : your_id
                     },
-                    success : function (data) {
-                        result:data;
-                        alert("성공")
+                    success : function () {
+                        modal.style.display = 'none';
+                        location.reload();
                     },
                     error: function (data) {
                         result:data,
                             alert("실패")
                     },
                 });
-            }
-
+            })
         });
     });
 </script>
@@ -92,8 +99,9 @@
 <c:if test="${not empty sessionScope.id}">
     <div style="text-align: right">
         <h5>${id}님 <a style='color:black; margin-right: 10px' href = '<%=request.getContextPath() %>/member/logout'>로그아웃</a>
-            <a style='color:black; margin-right: 10px' href = '<%=request.getContextPath() %>/chat/list'>채팅 목록</a>
-            <a style='color:black' href = '<%=request.getContextPath() %>/member/myPage'>마이페이지</a></h5>
+        <a style='color:black; margin-right: 10px' href = '<%=request.getContextPath() %>/chat/list'>채팅 목록</a>
+        <a style='color:black; margin-right: 10px' href = '<%=request.getContextPath() %>/friend/frdList'>친구 목록</a>
+        <a style='color:black' href = '<%=request.getContextPath() %>/member/myPage'>마이페이지</a></h5>
     </div>
 </c:if>
 <div class="result-container">
@@ -103,9 +111,9 @@
             <div class="resultList">
                 <p>${none}</p>
                 <b style="margin-right: 50px">${result.id}</b>
+                <input class="your_id" value="${result.id}" type="hidden">
                 <button class="frdBtn">친구 추가</button>
                 <p>${result.nickname}</p>
-                <input class="your_num" value="${result.member_num}">
             </div>
         </c:forEach>
         <div class="resultList">
@@ -116,8 +124,8 @@
         <div class="modal-content"><br>
             <p>친구 추가 하시겠습니까?</p>
             <div class="modal-footer">
-                <button id="noBtn">아니오</button>
-                <button id="yesBtn">예</button>
+                <button class="noBtn">아니오</button>
+                <button class="yesBtn">예</button>
             </div>
         </div>
     </div>

@@ -13,6 +13,6 @@ public interface MemberMap {
     int findPwd(@Param("id") String id, @Param("email") String email);
     void updatePwd(Member member);
     List<Member> searchId(String keyword);
-    Member myPage(String id);
+    Member selectMem(String id);
     void updateMem(Member member);
 }

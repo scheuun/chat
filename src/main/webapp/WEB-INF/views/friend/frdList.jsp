@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -18,14 +19,14 @@
             text-align: center;
         }
 
-        .room-list {
+        .frd-list {
             list-style-type: none;
             padding: 0;
             background-color: #A9F5F2;
             padding: 10px;
         }
 
-        .room-list li {
+        .frd-list p {
             margin-bottom: 10px;
             color: #fff;
         }
@@ -49,21 +50,24 @@
     </div>
 </c:if>
 <section>
-    <label>대화상대 찾기</label>
+    <label>친구 찾기</label>
     <form method="post" action="/member/searchResult">
         <input type="text" name="keyword" placeholder="아이디를 입력하세요">
         <button type="submit">검색</button>
     </form>
 </section><br>
-<div class="chat-container">
-    <div class="chat-sidebar">
-        <h3>채팅방 목록</h3>
-        <ul class="room-list">
-            <li><a href="#">방 1</a></li>
-            <li><a href="#">방 2</a></li>
-            <li><a href="#">방 3</a></li>
-        </ul>
+<div class="frd-container">
+    <div class="frd-sidebar">
+        <h3>친구 목록</h3>
+        <c:forEach var="friends" items="${friends}">
+            <div class="frd-list">
+                <p>${none}</p>
+                <b style="margin-right: 50px">${friends.your_id}</b>
+                <p>${friends.nickname}</p>
+            </div>
+        </c:forEach>
     </div>
 </div>
+
 </body>
 </html>

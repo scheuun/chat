@@ -2,8 +2,8 @@ package com.chat.model;
 
 public class Friend {
     private int friend_num;
-    private int my_num;
-    private int your_num;
+    private String my_id;
+    private String your_id;
 
     public int getFriend_num() {
         return friend_num;
@@ -13,19 +13,19 @@ public class Friend {
         this.friend_num = friend_num;
     }
 
-    public int getMy_num() {
-        return my_num;
+    public String getMy_id() {
+        return my_id;
     }
 
-    public void setMy_num(int my_num) {
-        this.my_num = my_num;
+    public void setMy_id(String my_id) {
+        this.my_id = my_id;
     }
 
-    public int getYour_num() {
-        return your_num;
+    public String getYour_id() {
+        return your_id;
     }
 
-    public void setYour_num(int your_num) {
-        this.your_num = your_num;
+    public void setYour_id(String your_id) {
+        this.your_id = your_id;
     }
 }

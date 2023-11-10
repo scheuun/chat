@@ -36,7 +36,7 @@
         where id like concat('%', #{keyword}, '%')
     </select>
 
-    <select id="myPage" resultType="com.chat.model.Member">
+    <select id="selectMem" resultType="com.chat.model.Member">
         select * from members
         where id = #{id}
     </select>

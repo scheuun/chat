@@ -2,11 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chat.dao.map.FriendMap">
     <select id="selectFrd" resultType="com.chat.model.Friend">
-		select * from friends where my_num = #{my_num};
+		select * from friends where my_id = #{my_id};
 	</select>
 
+    <select id="chkFrd" resultType="int">
+        select count(*) from friends
+        where your_id = #{your_id};
+    </select>
+
     <insert id="insertFrd">
-        insert into friends(my_num, your_num)
-        values (#{my_num}, #{your_num})
+        insert into friends(my_id, your_id)
+        values (#{my_id}, #{your_id})
     </insert>
 </mapper>

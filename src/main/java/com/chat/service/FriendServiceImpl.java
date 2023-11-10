@@ -5,6 +5,8 @@ import com.chat.model.Friend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FriendServiceImpl implements FriendService {
 
@@ -12,8 +14,13 @@ public class FriendServiceImpl implements FriendService {
     FriendMap friendMap;
 
     @Override
-    public Friend selectFrd(int my_num) {
-        return friendMap.selectFrd(my_num);
+    public List<Friend> selectFrd(String my_id) {
+        return friendMap.selectFrd(my_id);
+    }
+
+    @Override
+    public int chkFrd(String your_id) {
+        return friendMap.chkFrd(your_id);
     }
 
     @Override

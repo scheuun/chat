@@ -52,8 +52,8 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
-    public Member myPage(String id) {
-        return memberMap.myPage(id);
+    public Member selectMem(String id) {
+        return memberMap.selectMem(id);
     }
 
     @Override

@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chat.dao.map.FriendMap">
     <select id="selectFrd" resultType="com.chat.model.Friend">
-		select * from friends where my_id = #{my_id};
+		select * from friends a
+        join members b
+        on a.your_id = b.id
+        where my_id = #{my_id};
 	</select>
 
     <select id="chkFrd" resultType="int">

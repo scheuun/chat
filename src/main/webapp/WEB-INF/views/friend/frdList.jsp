@@ -25,11 +25,6 @@
             background-color: #A9F5F2;
             padding: 10px;
         }
-
-        .frd-list p {
-            margin-bottom: 10px;
-            color: #fff;
-        }
     </style>
 </head>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -56,6 +51,18 @@
         <button type="submit">검색</button>
     </form>
 </section><br>
+<%--<div class="frd-container">--%>
+<%--    <div class="frd-sidebar">--%>
+<%--        <h3>친구 목록</h3>--%>
+<%--        <c:forEach var="friends" items="${friends}">--%>
+<%--            <div class="frd-list">--%>
+<%--                <p>${none}</p>--%>
+<%--                <b style="margin-right: 50px">${friends.your_id}</b>--%>
+<%--                <p>${friends.nickname}</p>--%>
+<%--            </div>--%>
+<%--        </c:forEach>--%>
+<%--    </div>--%>
+<%--</div>--%>
 <div class="frd-container">
     <div class="frd-sidebar">
         <h3>친구 목록</h3>
@@ -63,9 +70,24 @@
             <div class="frd-list">
                 <p>${none}</p>
                 <b style="margin-right: 50px">${friends.your_id}</b>
+                <input class="your_id" value="${result.id}" type="hidden">
+                <button class="chatBtn">대화 하기</button>
+                <button class="delBtn">친구 삭제</button>
                 <p>${friends.nickname}</p>
             </div>
         </c:forEach>
+        <div class="frd-list">
+            <p>${none}</p>
+        </div>
+    </div>
+    <div class="modal">
+        <div class="modal-content"><br>
+            <p id="modalMessage">친구 삭제 하시겠습니까?</p>
+            <div class="modal-footer">
+                <button id="noBtn">아니오</button>
+                <button id="yesBtn">예</button>
+            </div>
+        </div>
     </div>
 </div>
 

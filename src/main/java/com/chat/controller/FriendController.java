@@ -6,9 +6,7 @@ import com.chat.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,7 +18,7 @@ public class FriendController {
     @Autowired
     MemberService memberService;
 
-    @GetMapping("/friend/frdList")
+    @RequestMapping(value = "/friend/frdList", method = {RequestMethod.GET, RequestMethod.POST})
     public String frdList(HttpSession session, Model model) {
         model.addAttribute("friends", friendService.selectFrd((String) session.getAttribute("id")));
         return "friend/frdList";
@@ -37,10 +35,4 @@ public class FriendController {
             model.addAttribute("dup", friendService.chkFrd(friend.getYour_id()));
         }
     }
-
-//    @PostMapping("/chkFrd")
-//    @ResponseBody
-//    public int chkFrd(String your_id) {
-//        return friendService.chkFrd(your_id);
-//    }
 }

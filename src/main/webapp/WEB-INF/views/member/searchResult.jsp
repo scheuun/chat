@@ -55,40 +55,66 @@
             var your_id = $(this).siblings(".your_id").val();
 
             console.log(your_id);
-
-
+            console.log(${dup});
 
             var modal = document.querySelector('.modal');
             modal.style.display = 'block';
 
-            if (my_id == your_id) {
-                modal.style.display = 'none';
-                console.log("같지렁")
-            }
+            $.ajax({
+                type:"POST",
+                url: "/friend/chkFrd",
+                data : {
+                    your_id : your_id
+                },
+                success : function (data) {
+                    modal.style.display = 'none';
+                    console.log(data)
 
+                    if (data > 0 || your_id == my_id) {
+                        const modalMessage = document.getElementById("modalMessage");
+                        const yesBtn = document.getElementById("yesBtn");
+                        const noBtn = document.getElementById("noBtn");
 
+                        modalMessage.textContent = "이미 등록된 친구입니다.";
+                        yesBtn.textContent = "확인";
+                        noBtn.style.display = "none"
+                        modal.style.display = 'block';
 
-            $(".noBtn").click(function () {
-                modal.style.display = 'none';
-            })
+                        $("#yesBtn").click(function () {
+                            modal.style.display = 'none';
+                            location.reload();
+                        })
+                    } else {
+                        modal.style.display = 'block';
 
-            $(".yesBtn").click(function () {
-                $.ajax({
-                    type:"POST",
-                    url: "/friend/insertFrd",
-                    data : {
-                        your_id : your_id
-                    },
-                    success : function () {
-                        modal.style.display = 'none';
-                        location.reload();
-                    },
-                    error: function (data) {
-                        result:data,
-                            alert("실패")
-                    },
-                });
-            })
+                        $("#noBtn").click(function () {
+                            modal.style.display = 'none';
+                        })
+
+                        $("#yesBtn").click(function () {
+                            $.ajax({
+                                type:"POST",
+                                url: "/friend/insertFrd",
+                                data : {
+                                    your_id : your_id
+                                },
+                                success : function () {
+                                    modal.style.display = 'none';
+                                    location.reload();
+                                },
+                                error: function (data) {
+                                    result:data,
+                                        alert("실패")
+                                },
+                            });
+                        })
+                    }
+                },
+                error: function (data) {
+                    result:data,
+                        alert("실패")
+                },
+            });
         });
     });
 </script>
@@ -122,10 +148,10 @@
     </div>
     <div class="modal">
         <div class="modal-content"><br>
-            <p>친구 추가 하시겠습니까?</p>
+            <p id="modalMessage">친구 추가 하시겠습니까?</p>
             <div class="modal-footer">
-                <button class="noBtn">아니오</button>
-                <button class="yesBtn">예</button>
+                <button id="noBtn">아니오</button>
+                <button id="yesBtn">예</button>
             </div>
         </div>
     </div>

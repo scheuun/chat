@@ -4,6 +4,7 @@ public class Friend {
     private int friend_num;
     private String my_id;
     private String your_id;
+    private String nickname;
 
     public int getFriend_num() {
         return friend_num;
@@ -27,5 +28,13 @@ public class Friend {
 
     public void setYour_id(String your_id) {
         this.your_id = your_id;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

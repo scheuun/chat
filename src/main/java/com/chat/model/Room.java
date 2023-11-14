@@ -1,9 +1,13 @@
 package com.chat.model;
 
+import java.sql.Timestamp;
+
 public class Room {
     private int room_num;
     private String room_name;
-    private int creator_num ;
+    private String creator_id ;
+    private String invitee_id;
+    private Timestamp time;
 
     public int getRoom_num() {
         return room_num;
@@ -21,11 +25,27 @@ public class Room {
         this.room_name = room_name;
     }
 
-    public int getCreator_num() {
-        return creator_num;
+    public String getCreator_id() {
+        return creator_id;
     }
 
-    public void setCreator_num(int creator_num) {
-        this.creator_num = creator_num;
+    public void setCreator_id(String creator_id) {
+        this.creator_id = creator_id;
+    }
+
+    public String getInvitee_id() {
+        return invitee_id;
+    }
+
+    public void setInvitee_id(String invitee_id) {
+        this.invitee_id = invitee_id;
+    }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 }

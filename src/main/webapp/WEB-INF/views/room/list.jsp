@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,9 +26,9 @@
             padding: 10px;
         }
 
-        .room-list li {
+        .room-list b {
             margin-bottom: 10px;
-            color: #fff;
+            color: #000000;
         }
     </style>
 </head>
@@ -43,26 +44,31 @@
 <c:if test="${not empty sessionScope.id}">
     <div style="text-align: right">
         <h5>${id}님 <a style='color:black; margin-right: 10px' href = '<%=request.getContextPath() %>/member/logout'>로그아웃</a>
-        <a style='color:black; margin-right: 10px' href = '<%=request.getContextPath() %>/chat/list'>채팅 목록</a>
+        <a style='color:black; margin-right: 10px' href = '<%=request.getContextPath() %>/room/list'>채팅 목록</a>
         <a style='color:black; margin-right: 10px' href = '<%=request.getContextPath() %>/friend/frdList'>친구 목록</a>
         <a style='color:black' href = '<%=request.getContextPath() %>/member/myPage'>마이페이지</a></h5>
     </div>
 </c:if>
 <section>
-    <label>대화상대 찾기</label>
+    <label>채팅상대 찾기</label>
     <form method="post" action="/member/searchResult">
         <input type="text" name="keyword" placeholder="아이디를 입력하세요">
         <button type="submit">검색</button>
     </form>
 </section><br>
-<div class="chat-container">
-    <div class="chat-sidebar">
+<div class="room-container">
+    <div class="room-sidebar">
         <h3>채팅방 목록</h3>
-        <ul class="room-list">
-            <li><a href="#">방 1</a></li>
-            <li><a href="#">방 2</a></li>
-            <li><a href="#">방 3</a></li>
-        </ul>
+        <c:forEach var="rooms" items="${rooms}">
+            <div class="room-list">
+                <p>${none}</p>
+                <a href="/chat/chat?room_num=${rooms.room_num}"><b style="margin-right: 50px">${rooms.room_name}</b></a>
+                <button class="delBtn">채팅방 삭제</button>
+            </div>
+        </c:forEach>
+        <div class="room-list">
+            <p>${none}</p>
+        </div>
     </div>
 </div>
 </body>

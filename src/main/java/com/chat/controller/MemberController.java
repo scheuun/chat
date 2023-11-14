@@ -87,7 +87,7 @@ public class MemberController {
         response.addCookie(cookie);
         model.addAttribute("cookieId", id);
       }
-      return "redirect:chat/list";
+      return "redirect:room/list";
 
     } else {
       model.addAttribute("msg", "아이디와 비밀번호를 확인하세요.");

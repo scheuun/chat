@@ -13,13 +13,8 @@ import java.util.List;
 
 @Controller
 @ServerEndpoint("/chat")
-public class ChatController {
+public class MessageController {
     private static final List<Session> session = new ArrayList<Session>();
-
-    @GetMapping("/chat/list")
-    public String list() {
-        return "chat/list";
-    }
 
     @GetMapping("/chat/chat")
     public String chat() {

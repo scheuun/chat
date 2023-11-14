@@ -4,12 +4,17 @@
     <select id='selectRoom' resultType='com.chat.model.Room'>
 		select *
 		from rooms
-		where creator_num = #{creator_num}
+		where creator_id = #{creator_id}
 		order by time;
 	</select>
 
+	<select id="chkRoom" resultType="int">
+        select count(*) from rooms
+        where invitee_id = #{invitee_id};
+    </select>
+
     <insert id='insertRoom'>
-		insert into rooms(room_name, creator_num)
-		values(#{room_name}, #{creator_num})
+		insert into rooms(room_name, creator_id, invitee_id)
+		values(#{room_name}, #{creator_id}, #{invitee_id})
 	</insert>
 </mapper>

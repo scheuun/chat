@@ -27,4 +27,7 @@ public class FriendServiceImpl implements FriendService {
     public void insertFrd(Friend friend) {
         friendMap.insertFrd(friend);
     }
+
+    @Override
+    public void delFrd(int friend_num) { friendMap.delFrd(friend_num); }
 }

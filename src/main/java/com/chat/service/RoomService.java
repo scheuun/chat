@@ -1,9 +1,10 @@
-package com.chat.dao.map;
+package com.chat.service;
 
 import com.chat.model.Room;
+
 import java.util.List;
 
-public interface RoomMap {
+public interface RoomService {
     List<Room> selectRoom(String creator_id);
     void insertRoom(Room room);
     int chkRoom(String invitee_id);

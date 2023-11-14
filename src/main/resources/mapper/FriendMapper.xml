@@ -5,7 +5,8 @@
 		select * from friends a
         join members b
         on a.your_id = b.id
-        where my_id = #{my_id};
+        where my_id = #{my_id}
+        order by nickname;
 	</select>
 
     <select id="chkFrd" resultType="int">
@@ -17,4 +18,9 @@
         insert into friends(my_id, your_id)
         values (#{my_id}, #{your_id})
     </insert>
+
+    <delete id="delFrd">
+        delete from friends
+        where friend_num = #{friend_num}
+    </delete>
 </mapper>

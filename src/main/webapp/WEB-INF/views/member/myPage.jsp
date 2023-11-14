@@ -60,7 +60,7 @@
                             language : language,
                         },
                         success : function () {
-                            location.href="<%=request.getContextPath() %>/chat/list";
+                            location.href="<%=request.getContextPath() %>/room/list";
                         },
                         error: function () {
                                 alert("실패")
@@ -102,7 +102,7 @@
 <c:if test="${not empty sessionScope.id}">
     <div style="text-align: right">
         <h5>${id}님 <a style='color:black; margin-right: 10px' href = '<%=request.getContextPath() %>/member/logout'>로그아웃</a>
-        <a style='color:black; margin-right: 10px' href = '<%=request.getContextPath() %>/chat/list'>채팅 목록</a>
+        <a style='color:black; margin-right: 10px' href = '<%=request.getContextPath() %>/room/list'>채팅 목록</a>
         <a style='color:black; margin-right: 10px' href = '<%=request.getContextPath() %>/friend/frdList'>친구 목록</a>
         <a style='color:black' href = '<%=request.getContextPath() %>/member/myPage'>마이페이지</a></h5>
     </div>

@@ -34,4 +34,8 @@ public class RoomController {
     public int chkRoom(String invitee_id) {
         return roomService.chkRoom(invitee_id);
     }
+
+    @PostMapping("room/delRoom")
+    @ResponseBody
+    public void delRoom(int room_num) { roomService.delRoom(room_num); }
 }

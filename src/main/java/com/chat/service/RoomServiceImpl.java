@@ -26,4 +26,9 @@ public class RoomServiceImpl implements RoomService {
     public int chkRoom(String invitee_id) {
         return roomMap.chkRoom(invitee_id);
     }
+
+    @Override
+    public void delRoom(int room_num) {
+        roomMap.delRoom(room_num);
+    }
 }

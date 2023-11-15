@@ -17,4 +17,9 @@
 		insert into rooms(room_name, creator_id, invitee_id)
 		values(#{room_name}, #{creator_id}, #{invitee_id})
 	</insert>
+
+	<delete id="delRoom">
+		delete from rooms
+		where room_num = #{room_num}
+	</delete>
 </mapper>

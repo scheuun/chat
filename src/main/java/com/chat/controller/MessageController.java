@@ -2,6 +2,8 @@ package com.chat.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -15,67 +17,43 @@ import java.util.concurrent.ConcurrentHashMap;
 @Controller
 @ServerEndpoint("/chat")
 public class MessageController {
-    private static final List<Session> session = new ArrayList<Session>();
-    private static final Map<String, List<Session>> roomSessions = new ConcurrentHashMap<>();
+    private static final Map<String, Session> activeSessions = new ConcurrentHashMap<>();
 
     @GetMapping("/chat/chat")
     public String chat() {
         return "chat/chat";
     }
 
+
+
     @OnOpen
-    public void open(Session newUser) {
+    public void open(Session session) {
         System.out.println("connected");
-        session.add(newUser);
-        System.out.println(newUser.getId());
+        activeSessions.put(session.getId(), session);
+        System.out.println(session.getId());
     }
 
-//    @OnMessage
-//    public void getMsg(Session receiveSession, String msg) {
-//        for (int i = 0; i < session.size(); i++) {
-//            if (!receiveSession.getId().equals(session.get(i).getId())) {
-//                try {
-//                    session.get(i).getBasicRemote().sendText("상대: " + msg);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            } else {
-//                try {
-//                    session.get(i).getBasicRemote().sendText("나: " + msg);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//    }
-
-
+    @OnClose
+    public void onClose(Session session) {
+        activeSessions.remove(session.getId());
+    }
 
     @OnMessage
-    public void getMsg(Session receiveSession, String message) {
-        String roomNum = extractRoomNum(receiveSession.getRequestURI().getQuery());
-        if (roomNum != null) {
-            List<Session> sessionsInRoom = roomSessions.computeIfAbsent(roomNum, k -> new ArrayList<>());
-
-            for (Session session : sessionsInRoom) {
+    public void getMsg(Session receiveSession, String msg) {
+        for (Session session : activeSessions.values()) {
+            if (!receiveSession.getId().equals(session.getId())) {
                 try {
-                    String sender = (session.getId().equals(receiveSession.getId())) ? "나" : "상대";
-                    session.getBasicRemote().sendText(sender + ": " + message);
+                    session.getBasicRemote().sendText("상대: " + msg);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    session.getBasicRemote().sendText("나: " + msg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
-    }
-
-    private String extractRoomNum(String query) {
-        String[] params = query.split("&");
-        for (String param : params) {
-            String[] keyValue = param.split("=");
-            if (keyValue.length == 2 && "room_num".equals(keyValue[0])) {
-                return keyValue[1];
-            }
-        }
-        return null;
     }
 }

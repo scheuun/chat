@@ -4,7 +4,7 @@
     <select id='selectRoom' resultType='com.chat.model.Room'>
 		select *
 		from rooms
-		where creator_id = #{creator_id}
+		where creator_id = #{creator_id} or invitee_id =  #{invitee_id}
 		order by time;
 	</select>
 

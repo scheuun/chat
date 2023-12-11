@@ -10,7 +10,8 @@
 
 	<select id="chkRoom" resultType="int">
         select count(*) from rooms
-        where invitee_id = #{invitee_id};
+        where (creator_id = #{creator_id} and invitee_id = #{invitee_id})
+        	or (invitee_id = #{creator_id} and creator_id = #{invitee_id});
     </select>
 
     <insert id='insertRoom'>

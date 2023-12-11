@@ -29,17 +29,17 @@ public class FriendController {
 
     @PostMapping("/friend/chkFrd")
     @ResponseBody
-    public int chkFrd(String your_id) {
-        return friendService.chkFrd(your_id);
+    public int chkFrd(String my_id, String your_id) {
+        return friendService.chkFrd(my_id, your_id);
     }
 
     @PostMapping("/friend/insertFrd")
     @ResponseBody
-    public void insertFrd(Friend friend, HttpSession session, Model model, String your_id) {
+    public void insertFrd(Friend friend, HttpSession session, Model model) {
         String my_id =  (String) session.getAttribute("id");
         friend.setMy_id(my_id);
-            friendService.insertFrd(friend);
-            model.addAttribute("dup", friendService.chkFrd(friend.getYour_id()));
+        friendService.insertFrd(friend);
+        model.addAttribute("dup", friendService.chkFrd(my_id, friend.getYour_id()));
     }
 
     @PostMapping("/friend/delFrd")

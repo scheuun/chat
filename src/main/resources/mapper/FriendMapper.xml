@@ -11,7 +11,7 @@
 
     <select id="chkFrd" resultType="int">
         select count(*) from friends
-        where your_id = #{your_id};
+        where my_id = #{my_id} and your_id = #{your_id};
     </select>
 
     <insert id="insertFrd">

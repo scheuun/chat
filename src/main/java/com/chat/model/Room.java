@@ -7,6 +7,8 @@ public class Room {
     private String room_name;
     private String creator_id ;
     private String invitee_id;
+    private String creator_nn ;
+    private String invitee_nn;
     private Timestamp time;
 
     public int getRoom_num() {

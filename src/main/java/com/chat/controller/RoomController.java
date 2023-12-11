@@ -17,7 +17,8 @@ public class RoomController {
 
     @RequestMapping(value ="/room/list", method = {RequestMethod.GET, RequestMethod.POST})
     public String frdList(HttpSession session, Model model) {
-        List<Room> roomList = roomService.selectRoom((String) session.getAttribute("id"));
+        String id = (String) session.getAttribute("id");
+        List<Room> roomList = roomService.selectRoom(id, id);
         if (roomList.size() == 0) model.addAttribute("none", "채팅방 목록이 존재하지 않습니다.");
         else model.addAttribute("rooms", roomList);
         return "room/list";
@@ -31,8 +32,8 @@ public class RoomController {
 
     @PostMapping("/room/chkRoom")
     @ResponseBody
-    public int chkRoom(String invitee_id) {
-        return roomService.chkRoom(invitee_id);
+    public int chkRoom(String creator_id, String invitee_id) {
+        return roomService.chkRoom(creator_id, invitee_id);
     }
 
     @PostMapping("room/delRoom")

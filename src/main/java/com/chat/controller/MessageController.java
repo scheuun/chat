@@ -14,41 +14,23 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
-@ServerEndpoint("/chat")
-public class MessageController {
+@ServerEndpoint("/chat/chat")
+public class MessageController extends Socket {
     @Autowired
     RoomService roomService;
 
-    private static final Map<String, Session> activeSessions = new ConcurrentHashMap<>();
+    private static final List<Session> activeSessions = new ArrayList<Session>();
 
     @GetMapping("/chat/chat")
     public String chat() {
         return "chat/chat";
-    }
-
-    @OnOpen
-    public void open(Session session, HttpSession httpSession, HttpServletRequest request) {
-//        System.out.println("connected");
-//        activeSessions.put(session.getId(), session);
-//        System.out.println(session.getId());
-
-        if (isValid(httpSession, request)) {
-            System.out.println("connected");
-            activeSessions.put(session.getId(), session);
-            System.out.println(session.getId());
-        } else {
-            System.out.println("unconnected");
-            try {
-                session.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @OnClose
@@ -56,18 +38,38 @@ public class MessageController {
         activeSessions.remove(session.getId());
     }
 
+    @OnOpen
+    public void open(Session newUser) {
+        System.out.println("connected");
+        activeSessions.add(newUser);
+        System.out.println(newUser.getId());
+
+//        if (isValid(httpSession, request)) {
+//            System.out.println("connected");
+//            activeSessions.put(session.getId(), session);
+//            System.out.println(session.getId());
+//        } else {
+//            System.out.println("unconnected");
+//            try {
+//                session.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+    }
+
     @OnMessage
-    public void getMsg(Session receiveSession, String msg) {
-        for (Session session : activeSessions.values()) {
-            if (!receiveSession.getId().equals(session.getId())) {
+    public void getMsg(Session recieveSession, String msg) {
+        for (int i = 0; i < activeSessions.size(); i++) {
+            if (!recieveSession.getId().equals(activeSessions.get(i).getId())) {
                 try {
-                    session.getBasicRemote().sendText("상대: " + msg);
+                    activeSessions.get(i).getBasicRemote().sendText("상대 : "+msg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else {
+            }else{
                 try {
-                    session.getBasicRemote().sendText("나: " + msg);
+                    activeSessions.get(i).getBasicRemote().sendText("나 : "+msg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -75,16 +77,16 @@ public class MessageController {
         }
     }
 
-    private boolean isValid (HttpSession httpSession, HttpServletRequest request) {
-        List<Room> roomList = roomService.selectRoom(request.getParameter("room_num"));
-        boolean result = false;
-
-        for (int i = 0; i < roomList.size(); i++) {
-            String creator_id = roomList.get(i).getCreator_id();
-            String invitee_id = roomList.get(i).getInvitee_id();
-            if (httpSession.getAttribute("id").equals(creator_id)
-                    || httpSession.getAttribute("id").equals(invitee_id)) result = true;
-        }
-        return result;
-    }
+//    private boolean isValid (HttpSession httpSession, HttpServletRequest request) {
+//        List<Room> roomList = roomService.selectRoom(request.getParameter("room_num"));
+//        boolean result = false;
+//
+//        for (int i = 0; i < roomList.size(); i++) {
+//            String creator_id = roomList.get(i).getCreator_id();
+//            String invitee_id = roomList.get(i).getInvitee_id();
+//            if (httpSession.getAttribute("id").equals(creator_id)
+//                    || httpSession.getAttribute("id").equals(invitee_id)) result = true;
+//        }
+//        return result;
+//    }
 }

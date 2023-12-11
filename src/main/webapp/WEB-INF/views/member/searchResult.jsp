@@ -64,6 +64,7 @@
                 type:"POST",
                 url: "/friend/chkFrd",
                 data : {
+                    my_id : my_id,
                     your_id : your_id
                 },
                 success : function (data) {

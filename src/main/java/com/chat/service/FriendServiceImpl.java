@@ -19,8 +19,8 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
-    public int chkFrd(String your_id) {
-        return friendMap.chkFrd(your_id);
+    public int chkFrd(String my_id, String your_id) {
+        return friendMap.chkFrd(my_id, your_id);
     }
 
     @Override

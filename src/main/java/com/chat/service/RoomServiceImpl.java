@@ -13,8 +13,8 @@ public class RoomServiceImpl implements RoomService {
     RoomMap roomMap;
 
     @Override
-    public List<Room> selectRoom(String creator_id) {
-        return roomMap.selectRoom(creator_id);
+    public List<Room> selectRoom(String creator_id, String invitee_id) {
+        return roomMap.selectRoom(creator_id, invitee_id);
     }
 
     @Override
@@ -23,8 +23,8 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public int chkRoom(String invitee_id) {
-        return roomMap.chkRoom(invitee_id);
+    public int chkRoom(String creator_id, String invitee_id) {
+        return roomMap.chkRoom(creator_id, invitee_id);
     }
 
     @Override

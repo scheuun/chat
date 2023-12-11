@@ -94,13 +94,17 @@
             modal.style.display = 'block';
             modalMessage.textContent = "채팅을 시작하시겠습니까?";
 
+            console.log(creator_id)
+            console.log(invitee_id)
             $.ajax({
                 type:"POST",
                 url: "/room/chkRoom",
                 data : {
-                    invitee_id: invitee_id,
+                    creator_id: creator_id,
+                    invitee_id: invitee_id
                 },
                 success : function (data) {
+                    console.log(data)
                     if (data > 0) {
                         const modalMessage = document.getElementById("modalMessage");
                         const yesBtn = document.getElementById("yesBtn");
@@ -126,7 +130,7 @@
                                 type:"POST",
                                 url: "/room/insertRoom",
                                 data : {
-                                    room_name : room_name,
+                                    room_name: room_name,
                                     creator_id: creator_id,
                                     invitee_id: invitee_id,
                                 },

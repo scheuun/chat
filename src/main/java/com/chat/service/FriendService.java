@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface FriendService {
     List<Friend> selectFrd(String my_id);
-    int chkFrd(String your_id);
+    int chkFrd(String my_id, String your_id);
     void insertFrd(Friend friend);
     void delFrd(int friend_num);
 }

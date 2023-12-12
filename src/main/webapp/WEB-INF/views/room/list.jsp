@@ -114,7 +114,9 @@
         <c:forEach var="rooms" items="${rooms}">
             <div class="room-list">
                 <p>${none}</p>
-                <a href="/chat/chat?room_num=${rooms.room_num}"><b style="margin-right: 50px">${rooms.room_name}</b></a>
+                <a href="/chat/chat?room_num=${rooms.room_num}">
+                    <c:if test="${rooms.creator_id == sessionScope.id}"><b style="margin-right: 50px">${rooms.invitee_nn}</b></c:if>
+                    <c:if test="${rooms.creator_id != sessionScope.id}"><b style="margin-right: 50px">${rooms.creator_nn}</b></c:if></a>
                 <button class="delBtn">채팅방 삭제</button>
                 <input class="room_num" value="${rooms.room_num}" type="hidden">
             </div>

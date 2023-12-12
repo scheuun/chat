@@ -1,6 +1,7 @@
 package com.chat.controller;
 
 import com.chat.model.Room;
+import com.chat.service.MemberService;
 import com.chat.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,14 +18,15 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
 @ServerEndpoint("/chat/chat")
 public class MessageController extends Socket {
     @Autowired
     RoomService roomService;
+
+    @Autowired
+    MemberService memberService;
 
     private static final List<Session> activeSessions = new ArrayList<Session>();
 
@@ -43,19 +45,6 @@ public class MessageController extends Socket {
         System.out.println("connected");
         activeSessions.add(newUser);
         System.out.println(newUser.getId());
-
-//        if (isValid(httpSession, request)) {
-//            System.out.println("connected");
-//            activeSessions.put(session.getId(), session);
-//            System.out.println(session.getId());
-//        } else {
-//            System.out.println("unconnected");
-//            try {
-//                session.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     @OnMessage
@@ -76,17 +65,4 @@ public class MessageController extends Socket {
             }
         }
     }
-
-//    private boolean isValid (HttpSession httpSession, HttpServletRequest request) {
-//        List<Room> roomList = roomService.selectRoom(request.getParameter("room_num"));
-//        boolean result = false;
-//
-//        for (int i = 0; i < roomList.size(); i++) {
-//            String creator_id = roomList.get(i).getCreator_id();
-//            String invitee_id = roomList.get(i).getInvitee_id();
-//            if (httpSession.getAttribute("id").equals(creator_id)
-//                    || httpSession.getAttribute("id").equals(invitee_id)) result = true;
-//        }
-//        return result;
-//    }
 }

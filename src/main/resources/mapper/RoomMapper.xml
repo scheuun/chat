@@ -15,8 +15,8 @@
     </select>
 
     <insert id='insertRoom'>
-		insert into rooms(room_name, creator_id, invitee_id)
-		values(#{room_name}, #{creator_id}, #{invitee_id})
+		insert into rooms(room_name, creator_id, invitee_id, creator_nn, invitee_nn)
+		values(#{room_name}, #{creator_id}, #{invitee_id}, #{creator_nn}, #{invitee_nn})
 	</insert>
 
 	<delete id="delRoom">

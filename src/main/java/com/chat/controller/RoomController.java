@@ -1,6 +1,7 @@
 package com.chat.controller;
 
 import com.chat.model.Room;
+import com.chat.service.MemberService;
 import com.chat.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,8 @@ import java.util.List;
 public class RoomController {
     @Autowired
     RoomService roomService;
+    @Autowired
+    MemberService memberService;
 
     @RequestMapping(value ="/room/list", method = {RequestMethod.GET, RequestMethod.POST})
     public String frdList(HttpSession session, Model model) {
@@ -26,7 +29,9 @@ public class RoomController {
 
     @PostMapping("/room/insertRoom")
     @ResponseBody
-    public void insertRoom(Room room) {
+    public void insertRoom(HttpSession session, String invitee_id, Room room) {
+        room.setCreator_nn(memberService.selectMem((String) session.getAttribute("id")).getNickname());
+        room.setInvitee_nn(memberService.selectMem(invitee_id).getNickname());
         roomService.insertRoom(room);
     }
 

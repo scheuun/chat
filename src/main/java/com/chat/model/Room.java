@@ -43,6 +43,22 @@ public class Room {
         this.invitee_id = invitee_id;
     }
 
+    public String getCreator_nn() {
+        return creator_nn;
+    }
+
+    public void setCreator_nn(String creator_nn) {
+        this.creator_nn = creator_nn;
+    }
+
+    public String getInvitee_nn() {
+        return invitee_nn;
+    }
+
+    public void setInvitee_nn(String invitee_nn) {
+        this.invitee_nn = invitee_nn;
+    }
+
     public Timestamp getTime() {
         return time;
     }

@@ -87,6 +87,7 @@
             var room_name = $(this).siblings(".nickname").val();
             var creator_id = "<%=(String)session.getAttribute("id")%>";
             var invitee_id = $(this).siblings(".invitee_id").val();
+            var invitee_nn = $(this).siblings(".nickname").val();
 
             var modal = document.querySelector('.modal');
             const modalMessage = document.getElementById("modalMessage");
@@ -173,7 +174,6 @@
             <div class="frd-list">
                 <p>${none}</p>
                 <b style="margin-right: 50px">${friends.your_id}</b>
-
                 <button class="chatBtn">채팅 하기</button>
                 <button class="delBtn">친구 삭제</button>
                 <p>${friends.nickname}</p>

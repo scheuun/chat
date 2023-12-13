@@ -14,6 +14,11 @@
         	or (invitee_id = #{creator_id} and creator_id = #{invitee_id});
     </select>
 
+	<select id="isMemRoom" resultType="int">
+		select count(*) from rooms
+		where room_num = #{room_num} and (creator_id = #{creator_id} or invitee_id =  #{invitee_id})
+	</select>
+
     <insert id='insertRoom'>
 		insert into rooms(room_name, creator_id, invitee_id, creator_nn, invitee_nn)
 		values(#{room_name}, #{creator_id}, #{invitee_id}, #{creator_nn}, #{invitee_nn})

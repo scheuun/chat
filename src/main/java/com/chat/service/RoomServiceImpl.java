@@ -31,4 +31,11 @@ public class RoomServiceImpl implements RoomService {
     public void delRoom(int room_num) {
         roomMap.delRoom(room_num);
     }
+
+    @Override
+    public int isMemRoom(int room_num, String creator_id, String invitee_id) {
+        return roomMap.isMemRoom(room_num, creator_id, invitee_id);
+    }
+
+
 }

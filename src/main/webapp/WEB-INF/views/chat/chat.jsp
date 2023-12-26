@@ -55,27 +55,66 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" ></script>
 <script>
     let socket = new WebSocket("ws://localhost:8080/chat/chat");
+    var urlParams = new URLSearchParams(window.location.search);
+    var room_num = urlParams.get('room_num');
 
-    socket.onopen = function (e) {
+    console.log(room_num)
+
+    socket.onopen = function () {
         console.log('open server!')
     };
 
     socket.onerror = function (e){
         console.log(e);
-    }
+    };
 
-    socket.onmessage = function (e) {
-        console.log(e.data);
-        let msgArea = document.querySelector('.msgArea');
-        let newMsg = document.createElement('div');
-        newMsg.innerText=e.data;
-        msgArea.append(newMsg);
-    }
+    /*onmessage 함수는 메시지가 오면 자동실행됨*/
+    socket.onmessage = function (event) {
+        console.log("Received message: " + event.data);
+
+        try {
+            var content = JSON.parse(event.data);
+            console.log("Parsed message: ", content);
+
+            // 이제 content 객체를 사용하여 메시지를 처리할 수 있습니다.
+            var type = content.type;
+            var message = content.content;
+
+            if (type === "SEND") {
+                console.log("Received SEND type message");
+                var msgArea = document.querySelector('.msgArea');
+                var newMsg = document.createElement('div');
+                newMsg.innerText = message;
+                msgArea.appendChild(newMsg);
+            }
+        } catch (error) {
+            console.error("Error parsing message:", error);
+        }
+    };
 
     function sendMsg() {
-        let content=document.querySelector('.content').value;
-        socket.send(content);
-    }
+        let content = document.querySelector('.content').value;
+        console.log("content: " + content);
+        socket.send(JSON.stringify({ room_num: room_num, type: "SEND", content: content}));
+
+        $.ajax({
+            type: "POST",
+            url: "/chat/insertMsg",
+            dataType: "json",
+            data: {
+                room_num: room_num,
+                message: content,
+            },
+            success: function (data) {
+                console.log("성공:", data);
+            },
+            error: function (data) {
+                console.error("실패:", data);
+                alert("실패");
+            },
+        });
+    };
+
 </script>
 <body>
 <div class="container">

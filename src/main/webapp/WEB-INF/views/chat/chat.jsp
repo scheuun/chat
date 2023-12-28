@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +22,7 @@
         }
 
         .msgArea {
-            background-color: #007bff;
+            /*background-color: #007bff;*/
             color: #fff;
             border-radius: 5px;
             padding: 10px;
@@ -32,7 +33,7 @@
             display: flex;
         }
 
-        .content {
+        .message {
             flex: 1;
             padding: 10px;
             border: 1px solid #ccc;
@@ -73,12 +74,12 @@
         console.log("Received message: " + event.data);
 
         try {
-            var content = JSON.parse(event.data);
-            console.log("Parsed message: ", content);
+            var message = JSON.parse(event.data);
+            console.log("Parsed message: ", message);
 
-            // 이제 content 객체를 사용하여 메시지를 처리할 수 있습니다.
-            var type = content.type;
-            var message = content.content;
+            // 이제 message 객체를 사용하여 메시지를 처리할 수 있습니다.
+            var type = message.type;
+            var message = message.message;
 
             if (type === "SEND") {
                 console.log("Received SEND type message");
@@ -93,34 +94,44 @@
     };
 
     function sendMsg() {
-        let content = document.querySelector('.content').value;
-        console.log("content: " + content);
-        socket.send(JSON.stringify({ room_num: room_num, type: "SEND", content: content}));
+        let message = document.querySelector('.message').value;
+        console.log("message: " + message);
+        socket.send(JSON.stringify({ room_num: room_num, type: "SEND", message: message}));
 
         $.ajax({
             type: "POST",
             url: "/chat/insertMsg",
-            dataType: "json",
             data: {
                 room_num: room_num,
-                message: content,
+                sender_id: '<%= (String)session.getAttribute("id") %>',
+                message: message,
             },
             success: function (data) {
                 console.log("성공:", data);
             },
-            error: function (data) {
-                console.error("실패:", data);
-                alert("실패");
+            error: function (xhr, status, error) {
+                console.log("실패:", xhr.responseText); // 실제 서버 응답 내용을 확인
+                alert("실패: " + error);
             },
-        });
+        })
+
+        document.getElementById('msg').value = '';
     };
 
 </script>
 <body>
-<div class="container">
-    <div class="msgArea"></div>
+<p class="container">
+<%--    <div class="msgArea"></div>--%>
+    <c:forEach var="messages" items="${messages}">
+        <c:if test="${messages.sender_id eq sessionScope.id}">
+            <div class="msgArea" style="background-color: #007bff">${messages.message}<div style="font-size: 10px">${messages.time}</div></div>
+        </c:if>
+        <c:if test="${messages.sender_id ne sessionScope.id}">
+            <div class="msgArea" style="background-color: darkolivegreen">${messages.message}<div style="font-size: 10px">${messages.time}</div></div>
+        </c:if>
+    </c:forEach>
     <div class="input-container">
-        <input id="msg" type="text" placeholder="메세지를 입력하세요" class="content">
+        <input id="msg" type="text" placeholder="메세지를 입력하세요" class="message">
         <button type="button" class="sendBtn" onclick="sendMsg()">전송</button>
     </div>
 </div>

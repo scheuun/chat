@@ -3,12 +3,11 @@ package com.chat.controller;
 import com.chat.model.Message;
 import com.chat.service.MemberService;
 import com.chat.service.MessageService;
+import com.chat.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -27,12 +26,16 @@ public class MessageController extends Socket {
     @Autowired
     MemberService memberService;
 
+    @Autowired
+    RoomService roomService;
+
     private static final Map<String, Session> activeSessions = new ConcurrentHashMap<>();
 
     @GetMapping("/chat/chat")
     public String chat(HttpSession httpSession, Model model, @RequestParam("room_num") int room_num) {
         String id = (String) httpSession.getAttribute("id");
-        model.addAttribute("messages", messageService.selectMsg(room_num));
+        model.addAttribute("messages", messageService.selectMsg(room_num))
+                .addAttribute("myNn", memberService.selectMem(id).getNickname());
         return "chat/chat";
     }
 
@@ -49,8 +52,7 @@ public class MessageController extends Socket {
 
     @PostMapping("/chat/insertMsg")
     @ResponseBody
-    public void insertMsg(HttpSession httpSession, Message message) {
-        message.setSender_id(memberService.selectMem((String) httpSession.getAttribute("id")).getId());
+    public void insertMsg(Message message) {
         messageService.insertMsg(message);
     }
 }
